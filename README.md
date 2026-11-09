@@ -11,7 +11,7 @@ Projects on Ghanaian companies, markets and finance operations. Every number tra
 | 03 | [Accounts payable audit analytics](projects/03-ap-audit-analytics) | Benford's Law, duplicate payments and vendor concentration on 115,797 real payments ($10.66bn) | Python |
 | 04 | [Tax compliance cost and SME performance](projects/04-tax-compliance-cost-sme) | MSc research: PLS-SEM on 384 Accra SMEs, moderation by responsibility accounting | Python (PLS-SEM, bootstrapping) |
 | 05 | [Credit default risk model](projects/05-credit-risk-model) | Default prediction on 30,000 real accounts, AUC 0.78 | Python, scikit-learn |
-| 06 | Inflation forecasting | Time-series forecast of Ghana CPI | Python |
+| 06 | [Ghana inflation forecast](projects/06-inflation-forecasting) | SARIMA vs ARDL, 82-round backtest, cedi pass-through | Python, statsmodels |
 
 ## About me
 MSc Accounting and Finance candidate (University of Ghana Business School), ICAG Level II, with over three years in finance support and research roles (Wilmar Africa, Reseni Research).
