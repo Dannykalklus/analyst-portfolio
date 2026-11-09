@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ghana Macro Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Same research-note system as the portfolio: ruled sections, mono figures, ledger green accent with gold for the second series. */
+  --paper:#F2F4F3;--ink:#13201B;--muted:#5A6B64;--rule:#CBD5D0;--accent:#1E6B4E;--gold:#A87A12;--panel:#FFFFFF;--bad:#B03A2E;
+  --display:"Source Serif 4",Georgia,serif;--body:"IBM Plex Sans","Segoe UI",Arial,sans-serif;--mono:"IBM Plex Mono",Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#0F1714;--ink:#E4ECE8;--muted:#94A59E;--rule:#2A3832;--accent:#4FBF8E;--gold:#D9A93A;--panel:#15201C;--bad:#E07A6E;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#0F1714;--ink:#E4ECE8;--muted:#94A59E;--rule:#2A3832;--accent:#4FBF8E;--gold:#D9A93A;--panel:#15201C;--bad:#E07A6E;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);line-height:1.55;font-size:15px}
+a{color:var(--accent)}
+a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header{border-bottom:3px double var(--ink);padding:16px 0 12px}
+header .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}
+.back{font-size:.88rem}
+h1,h2{font-family:var(--display);text-wrap:balance;margin:0;font-weight:700;line-height:1.15}
+h1{font-size:clamp(1.8rem,4vw,2.6rem);margin:28px 0 8px}
+.lede{color:var(--muted);max-width:70ch;margin:0 0 20px}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.tiles{display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+.tile{padding:14px 14px 12px;border-right:1px solid var(--rule)}
+.tile:last-child{border-right:none}
+.tile .l{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tile .v{font-family:var(--display);font-size:1.9rem;font-weight:700;line-height:1.1;margin-top:4px}
+.tile .s{font-size:.78rem;color:var(--muted)}
+.up{color:var(--bad)}.down{color:var(--accent)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px}
+.card{background:var(--panel);border:1px solid var(--rule);padding:18px}
+.card.wide{grid-column:1/-1}
+.card h2{font-size:1.15rem}
+.card .sub{font-size:.8rem;color:var(--muted);margin:2px 0 10px}
+.chart{position:relative;height:280px}
+.card.wide .chart{height:320px}
+.note{font-size:.84rem;color:var(--ink);border-left:3px solid var(--gold);padding:2px 0 2px 10px;margin:12px 0 0;max-width:80ch}
+.findings{margin-top:28px;border-top:1px solid var(--rule);padding-top:16px}
+.findings ol{padding-left:20px;max-width:80ch}
+.findings li{margin-bottom:8px}
+footer{margin-top:40px;border-top:3px double var(--ink);padding:14px 0 36px;font-size:.78rem;color:var(--muted)}
+@media (max-width:900px){.tiles{grid-template-columns:repeat(3,1fr)}.tile:nth-child(3){border-right:none}.tile:nth-child(-n+3){border-bottom:1px solid var(--rule)}.grid{grid-template-columns:1fr}}
+@media (max-width:480px){.tiles{grid-template-columns:repeat(2,1fr)}.tile{border-right:none;border-bottom:1px solid var(--rule)}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><strong style="font-family:var(--display)">Daniel N. T. Tackie</strong><a class="back" href="../../index.html">Back to portfolio</a></div></header>
+<main class="wrap">
+  <h1>Ghana macro dashboard</h1>
+  <p class="lede">Inflation, interest rates, the cedi and the external position, rebuilt from official data. Monthly figures run from January 2025 to <span id="asof"></span>; annual figures run from 2000 to 2025.</p>
+
+  <div class="tiles" id="tiles"></div>
+
+  <div class="grid">
+    <div class="card wide">
+      <h2>Disinflation and the easing cycle</h2>
+      <p class="sub">Headline CPI inflation (year on year) vs Bank of Ghana monetary policy rate, %, monthly</p>
+      <div class="chart"><canvas id="c1" aria-label="Line chart of monthly inflation and policy rate"></canvas></div>
+      <p class="note" id="n1"></p>
+    </div>
+    <div class="card">
+      <h2>Real policy rate</h2>
+      <p class="sub">Policy rate minus inflation, percentage points</p>
+      <div class="chart"><canvas id="c2" aria-label="Bar chart of real policy rate"></canvas></div>
+      <p class="note" id="n2"></p>
+    </div>
+    <div class="card">
+      <h2>Cedi per US dollar</h2>
+      <p class="sub">Annual average exchange rate (line) and yearly change, % (bars)</p>
+      <div class="chart"><canvas id="c3" aria-label="Exchange rate chart"></canvas></div>
+      <p class="note" id="n3"></p>
+    </div>
+    <div class="card">
+      <h2>Inflation since 2000</h2>
+      <p class="sub">Annual average CPI inflation, %</p>
+      <div class="chart"><canvas id="c4" aria-label="Annual inflation bar chart"></canvas></div>
+      <p class="note">The 2022 to 2023 spike followed the cedi's collapse and the debt crisis that led to Ghana's domestic debt exchange.</p>
+    </div>
+    <div class="card">
+      <h2>Growth and the external position</h2>
+      <p class="sub">Real GDP growth and current account balance, % of GDP</p>
+      <div class="chart"><canvas id="c5" aria-label="GDP growth and current account chart"></canvas></div>
+      <p class="note" id="n5"></p>
+    </div>
+  </div>
+
+  <section class="findings">
+    <h2 style="font-size:1.3rem">What the data says</h2>
+    <ol id="findings"></ol>
+  </section>
+
+  <footer>
+    Sources: World Bank World Development Indicators API (annual: FP.CPI.TOTL.ZG, PA.NUS.FCRF, NY.GDP.MKTP.KD.ZG, NY.GDP.MKTP.CD, BN.CAB.XOKA.GD.ZS, FI.RES.TOTL.MO); Ghana Statistical Service CPI releases and Bank of Ghana MPC statements (monthly, each source listed per row in <span class="num">data/ghana_monthly_2025_2026.csv</span>). Built with Python and Chart.js by Daniel N. T. Tackie.
+  </footer>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+const A={"inflation_cpi_pct": [40.240933123914, 41.509496287803, 9.36093239560312, 29.7729797160383, 18.0427388232564, 15.4389920155908, 11.6791839392491, 10.7342665456292, 16.494639613412, 19.2469482220857, 10.7333898354914, 8.7284593709302, 11.1863409441067, 11.6661923071728, 15.4896160333318, 17.1499695007877, 17.4546347070867, 12.3719215507048, 7.80876516610703, 7.14364003330856, 9.88728956269944, 9.97108867504439, 31.2558951049016, 38.1069656296501, 22.8483281157842, 14.2046755548989], "usd_ghs_avg": [0.544919175868766, 0.716305157808995, 0.792417084313167, 0.866764326525345, 0.899494854007062, 0.905209485833333, 0.915106799166666, 0.932619195, 1.052275, 1.40496666666666, 1.42998333333333, 1.520625, 1.82486666666666, 1.98135, 2.896575, 3.71464166666666, 3.90981666666666, 4.35053333333333, 4.585325, 5.21736666666666, 5.59570833333333, 5.8057, 8.2724, 11.0204083333333, 14.1819416666666, 12.556825], "gdp_growth_pct": [3.70000008164408, 4.00000012807919, 4.49999955900331, 5.200000133101, 5.59999999077445, 5.90000381855104, 6.39991260618034, 4.34681910440079, 9.14979893831817, 4.84448705175076, 7.89971194051621, 14.0471235803149, 9.2927894063005, 7.31252501678145, 2.85624016330883, 2.12075933817334, 3.37346574966936, 8.12889488100956, 6.20007768127284, 6.5077747939152, 0.513941670628171, 5.07646643533542, 3.80484978178042, 3.14009100080186, 5.84746854280382, 5.95441714756899], "gdp_usd": [4982850662.20851, 5314872854.4405, 6166197847.85031, 7632723555.66221, 8881417906.71432, 10744568381.4456, 20885037596.6963, 24827339138.4906, 28679383241.0729, 26048720005.5233, 32197655566.5347, 39336668080.559, 41271701060.954, 62845721959.827, 54678533805.9064, 49436806230.4839, 56144179397.8516, 60385409434.8567, 67259353965.6087, 68352629246.1555, 70008243859.8666, 79514204730.3979, 73919003212.1998, 80547146875.9526, 83288585604.0268, 114209905278.717], "current_account_pct_gdp": [-7.75495051706689, -8.04286187367619, -1.70668468981884, 1.33224533437262, -6.64520344576759, -10.280631865678, -5.05660776463669, -9.58130961421888, -11.6021635051277, -7.28314283327412, -8.5327330566748, -9.00258173366362, -11.9009237632838, -9.07624953901069, -6.75690272053076, -5.7116156025854, -5.04424020618629, -3.31643027470141, -3.03986602950098, -2.72699375813964, -3.04816313374944, -2.8205574143058, -2.33126484632355, -0.911884130701339, 1.91923157284387, 8.22421088927033], "reserves_months_imports": [1.06719389754897, 1.21971784706324, 2.1702799474762, 4.04866980793435, 3.7351423698243, 3.32293145839649, 3.20805003973377, 2.53281170109432, 1.90391780434852, 3.78332230012957, 4.25120343144954, 3.41339545523001, 2.89531175178269, 2.778360872176, 3.16791053807696, 3.09310285341031, 3.20054453410844, 3.34414965865391, 2.72301591901143, 2.89562482242713, 3.29851075387678, 3.9199448740449, 1.89084325709736, 1.73947963245708, 2.60788864106508, 3.83233978344377], "remittances_usd": [32396800.0, 45909120.0, 43520000.0, 65100096.0, 82371200.0, 99184576.0, 105253248.0, 117363712.0, 126104704.0, 114455680.0, 135852160.0, 2134638607.37, 2155495000.0, 1863990000.0, 2007831480.11, 4982442361.78623, 2979934204.38383, 3536410000.0, 3520566623.36831, 4053694728.81048, 4291956800.55746, 1955950652.58157, 2128085082.98706, 2454335867.96485, 3027416789.17939, 2422884615.85255], "year": [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025], "fx_change": [null, 31.5, 10.6, 9.4, 3.8, 0.6, 1.1, 1.9, 12.8, 33.5, 1.8, 6.3, 20.0, 8.6, 46.2, 28.2, 5.3, 11.3, 5.4, 13.8, 7.3, 3.8, 42.5, 33.2, 28.7, -11.5]};const M={"month": ["2025-01", "2025-02", "2025-03", "2025-04", "2025-05", "2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09", "2026-10"], "infl": [23.5, 23.1, 22.4, 21.2, 18.4, 13.7, 12.1, 11.5, 9.4, 8.0, 6.3, 5.4, 3.8, 3.3, 3.2, 3.4, 3.7, 5.3, 4.6, 5.0, 5.2, 5.5], "mpr": [27.0, 27.0, 28.0, 28.0, 28.0, 28.0, 25.0, 25.0, 21.5, 21.5, 18.0, 18.0, 15.5, 15.5, 14.0, 14.0, 14.0, 14.0, 14.0, 14.0, 14.0, 14.0], "real": [3.5, 3.9, 5.6, 6.8, 9.6, 14.3, 12.9, 13.5, 12.1, 13.5, 11.7, 12.6, 11.7, 12.2, 10.8, 10.6, 10.3, 8.7, 9.4, 9.0, 8.8, 8.5]};const K={"infl": 5.5, "infl_prev": 5.2, "mpr": 14.0, "real": 8.5, "real_start": 3.5, "month": "2026-10", "gdp": 5.95441714756899, "ca": 8.22421088927033, "res": 3.83233978344377, "fx25": 12.556825, "fx24": 14.1819416666666, "fxchg": -11.5, "gdpusd": 114.20990527871699};
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const fmt=(v,d=1)=>v==null?"n/a":v.toFixed(d);
+const mlabel=m=>{const [y,mm]=m.split("-");return new Date(+y,+mm-1,1).toLocaleString("en-GB",{month:"short",year:"2-digit"})};
+document.getElementById("asof").textContent=mlabel(K.month).replace(" "," 20");
+const tiles=[
+ ["Inflation",fmt(K.infl)+"%",`${mlabel(K.month)}, from ${fmt(K.infl_prev)}% prior month`],
+ ["Policy rate",fmt(K.mpr)+"%","Unchanged since Mar 2026"],
+ ["Real policy rate",fmt(K.real)+" pp",`${fmt(K.real_start)} pp in Jan 2025`],
+ ["GDP growth 2025",fmt(K.gdp)+"%","Real, World Bank"],
+ ["Current account 2025",(K.ca>0?"+":"")+fmt(K.ca)+"%","of GDP"],
+ ["GHS per USD 2025",fmt(K.fx25,2),`${fmt(K.fxchg)}% vs 2024 average`]];
+document.getElementById("tiles").innerHTML=tiles.map(t=>`<div class="tile"><div class="l">${t[0]}</div><div class="v num">${t[1]}</div><div class="s">${t[2]}</div></div>`).join("");
+
+const ink=css("--ink"),muted=css("--muted"),rule=css("--rule"),acc=css("--accent"),gold=css("--gold"),bad=css("--bad");
+Chart.defaults.font.family=css("--body");Chart.defaults.color=muted;Chart.defaults.borderColor=rule;
+Chart.defaults.plugins.legend.labels.boxWidth=12;Chart.defaults.maintainAspectRatio=false;
+Chart.defaults.plugins.tooltip.callbacks.label=c=>`${c.dataset.label}: ${c.parsed.y==null?"n/a":c.parsed.y.toFixed(c.dataset.dp??1)}${c.dataset.unit??""}`;
+const ml=M.month.map(mlabel);
+
+new Chart(c1,{type:"line",data:{labels:ml,datasets:[
+ {label:"Policy rate",data:M.mpr,borderColor:gold,backgroundColor:gold,stepped:true,borderWidth:2.5,pointRadius:0,unit:"%"},
+ {label:"Inflation",data:M.infl,borderColor:acc,backgroundColor:acc+"22",fill:true,borderWidth:2.5,pointRadius:2,tension:.25,unit:"%"}]},
+ options:{interaction:{mode:"index",intersect:false},scales:{y:{beginAtZero:true,ticks:{callback:v=>v+"%"}},x:{grid:{display:false}}}}});
+document.getElementById("n1").textContent=`Inflation fell from ${M.infl[0]}% to a low of ${Math.min(...M.infl)}% before edging back up to ${K.infl}%. The Bank of Ghana cut the policy rate by ${Math.round((Math.max(...M.mpr)-K.mpr)*100)} basis points over the same period.`;
+
+new Chart(c2,{type:"bar",data:{labels:ml,datasets:[{label:"Real policy rate",data:M.real,backgroundColor:M.real.map(v=>v>=0?acc:bad),unit:" pp"}]},
+ options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>v+" pp"}},x:{grid:{display:false},ticks:{maxRotation:0,autoSkip:true,maxTicksLimit:8}}}}});
+document.getElementById("n2").textContent=`Even after the cuts, policy stayed tight in real terms: the real rate rose from ${K.real_start} pp to a peak of ${Math.max(...M.real).toFixed(1)} pp, because inflation fell faster than the policy rate.`;
+
+const fy=A.year.slice(10);
+new Chart(c3,{data:{labels:fy,datasets:[
+ {type:"line",label:"GHS per USD",data:A.usd_ghs_avg.slice(10),borderColor:ink,backgroundColor:ink,pointRadius:2,yAxisID:"y",dp:2},
+ {type:"bar",label:"Change vs prior year",data:A.fx_change.slice(10),backgroundColor:A.fx_change.slice(10).map(v=>v>0?bad+"99":acc),yAxisID:"y1",unit:"%"}]},
+ options:{interaction:{mode:"index",intersect:false},scales:{y:{position:"left",title:{display:true,text:"GHS per USD"}},y1:{position:"right",grid:{display:false},ticks:{callback:v=>v+"%"}},x:{grid:{display:false}}}}});
+document.getElementById("n3").textContent=`2025 was the only year since 2000 in which the cedi's average rate strengthened against the dollar (${K.fxchg}% change, from ${fmt(K.fx24,2)} to ${fmt(K.fx25,2)}).`;
+
+new Chart(c4,{type:"bar",data:{labels:A.year,datasets:[{label:"Inflation",data:A.inflation_cpi_pct,backgroundColor:A.inflation_cpi_pct.map(v=>v>=20?bad:acc),unit:"%"}]},
+ options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v+"%"}},x:{grid:{display:false},ticks:{maxRotation:0,autoSkip:true,maxTicksLimit:9}}}}});
+
+new Chart(c5,{type:"bar",data:{labels:fy,datasets:[
+ {label:"GDP growth",data:A.gdp_growth_pct.slice(10),backgroundColor:acc,unit:"%"},
+ {label:"Current account",data:A.current_account_pct_gdp.slice(10),backgroundColor:gold,unit:"%"}]},
+ options:{interaction:{mode:"index",intersect:false},scales:{y:{ticks:{callback:v=>v+"%"}},x:{grid:{display:false}}}}});
+document.getElementById("n5").textContent=`The current account swung from deficits of 7 to 12% of GDP in 2008 to 2013 to a surplus of ${fmt(K.ca)}% in 2025. Reserves covered ${fmt(K.res)} months of imports.`;
+
+const yi=A.year.indexOf(2023);
+document.getElementById("findings").innerHTML=[
+ `<strong>Disinflation was fast.</strong> Monthly inflation dropped from ${M.infl[0]}% in January 2025 to ${Math.min(...M.infl)}% by March 2026, the lowest in decades. Annual average inflation had peaked at ${fmt(A.inflation_cpi_pct[yi])}% in 2023.`,
+ `<strong>Rate cuts followed inflation down, with a lag.</strong> The policy rate went from 28% to ${K.mpr}%, and real rates stayed positive throughout, so the easing never became loose policy.`,
+ `<strong>Inflation is turning back up.</strong> It has risen from ${Math.min(...M.infl)}% to ${K.infl}% since March 2026, which explains why the MPC has held at ${K.mpr}% at its last three meetings.`,
+ `<strong>The external position is the strongest since at least 2000.</strong> A ${fmt(K.ca)}% of GDP current account surplus and the cedi's first annual appreciation since 2000 underpin the lower inflation.`,
+ `<strong>For investors:</strong> with inflation near 5.5% and the 364-day bill near 9.7%, real yields on cedi assets remain positive. This feeds directly into the cost of equity used in my MTN Ghana valuation.`
+].map(x=>`<li>${x}</li>`).join("");
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+month,inflation_yoy_pct,policy_rate_pct,source_inflation,source_policy_rate
+2025-01,23.5,27.0,GSS Jan 2026 CPI release (23.5% Jan 2025),BoG: 27% held Jan-Feb 2025 (GhanaWeb 17 Sep 2025)
+2025-02,23.1,27.0,GSS via Graphic Online 5 Mar 2025,BoG: 27% held Jan-Feb 2025
+2025-03,22.4,28.0,GSS June 2025 CPI release table,BoG MPC hike to 28% Mar 2025
+2025-04,21.2,28.0,GSS June 2025 CPI release table,BoG: 28% held
+2025-05,18.4,28.0,GSS June 2025 CPI release table,BoG MPC held 28% May 2025
+2025-06,13.7,28.0,GSS June 2025 CPI release table,BoG: 28% held
+2025-07,12.1,25.0,BoG MPC statement Sep 2025 (Daily Guide),BoG MPC cut to 25% Jul 2025
+2025-08,11.5,25.0,BoG MPC statement Sep 2025 (Daily Guide),BoG: 25% held
+2025-09,9.4,21.5,GSS via News Ghana 5 Feb 2026,BoG 126th MPC cut to 21.5% 17 Sep 2025 (GNA)
+2025-10,8.0,21.5,GSS Jan 2026 CPI release table,BoG: 21.5% held
+2025-11,6.3,18.0,GSS Jan 2026 CPI release table,BoG MPC cut to 18% 26 Nov 2025
+2025-12,5.4,18.0,GSS Jan 2026 CPI release table,BoG: 18% held
+2026-01,3.8,15.5,GSS Jan 2026 CPI release (GNA 5 Feb 2026),BoG MPC cut to 15.5% Jan 2026
+2026-02,3.3,15.5,GSS via B2B Ghana Mar 2026,BoG: 15.5% held
+2026-03,3.2,14.0,GSS via GNA 6 May 2026,BoG 129th MPC cut to 14% 18 Mar 2026
+2026-04,3.4,14.0,GSS via GNA 6 May 2026,BoG: 14% held
+2026-05,3.7,14.0,GSS via GNA 3 Jun 2026,BoG MPC held 14% May 2026 (FocusEconomics)
+2026-06,5.3,14.0,GSS via Adom Online Jul 2026,BoG: 14% held
+2026-07,4.6,14.0,GSS (reported Aug 2026),BoG 131st MPC held 14% Jul 2026
+2026-08,5.0,14.0,GSS via Graphic Online Sep 2026,BoG: 14% held
+2026-09,5.2,14.0,GSS via Graphic Online Oct 2026,BoG 132nd MPC held 14% 24 Sep 2026 (Citi Newsroom)
+2026-10,5.5,14.0,GSS via GNA 4 Nov 2026,BoG: 14% held
