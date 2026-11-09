@@ -8,7 +8,7 @@ Projects on Ghanaian companies, markets and finance operations. Every number tra
 |---|---|---|---|
 | 01 | [MTN Ghana equity valuation](projects/01-mtn-ghana-valuation) | Audited statements, ratio analysis, 5-year forecast, FCFE DCF and DDM, sensitivity | Excel |
 | 02 | [Ghana macro dashboard](projects/02-ghana-macro-dashboard) | Inflation, policy rate, cedi and external position, 2000-2026 | Python, World Bank API, Chart.js |
-| 03 | Accounts payable audit analytics | Benford's Law, duplicate payments and vendor concentration on 100k+ real payments | Python |
+| 03 | [Accounts payable audit analytics](projects/03-ap-audit-analytics) | Benford's Law, duplicate payments and vendor concentration on 115,797 real payments ($10.66bn) | Python |
 | 04 | Credit risk model | Default prediction on 30,000 real borrowers | Python, scikit-learn |
 | 05 | Inflation forecasting | Time-series forecast of Ghana CPI | Python |
 

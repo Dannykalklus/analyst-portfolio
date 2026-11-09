@@ -1,0 +1,651 @@
+{
+ "rows": 115797,
+ "total_usd": 10662915042.41,
+ "vendors": 17685,
+ "departments": 43,
+ "date_min": "2025-01-02",
+ "date_max": "2025-12-31",
+ "no_dept_rows": 0.5410243788699189,
+ "no_dept_value": 0.5692547697283441,
+ "no_dept_dv_share": 0.7295248128461748,
+ "benford1": {
+  "n": 115258,
+  "observed": [
+   0.2885,
+   0.1716,
+   0.1183,
+   0.0974,
+   0.1082,
+   0.0631,
+   0.069,
+   0.0445,
+   0.0394
+  ],
+  "expected": [
+   0.301,
+   0.1761,
+   0.1249,
+   0.0969,
+   0.0792,
+   0.0669,
+   0.058,
+   0.0512,
+   0.0458
+  ],
+  "mad": 0.009000171285302104,
+  "verdict": "Acceptable conformity",
+  "chi2": 1804.9237120471264,
+  "chi2_crit_8df_1pct": 20.09
+ },
+ "benford2": {
+  "observed": [
+   0.0424,
+   0.03117,
+   0.03128,
+   0.02684,
+   0.02563,
+   0.04004,
+   0.02192,
+   0.02891,
+   0.02028,
+   0.02,
+   0.02528,
+   0.01758,
+   0.01826,
+   0.01489,
+   0.01514,
+   0.02394,
+   0.01481,
+   0.01609,
+   0.01268,
+   0.01291,
+   0.01749,
+   0.01108,
+   0.01108,
+   0.01217,
+   0.01184,
+   0.01327,
+   0.01113,
+   0.01128,
+   0.00972,
+   0.00928,
+   0.01327,
+   0.01294,
+   0.01067,
+   0.00942,
+   0.00875,
+   0.01066,
+   0.00753,
+   0.00854,
+   0.00827,
+   0.00736,
+   0.04457,
+   0.00731,
+   0.00787,
+   0.0063,
+   0.00734,
+   0.00782,
+   0.00705,
+   0.00681,
+   0.00632,
+   0.00678,
+   0.01034,
+   0.00633,
+   0.00608,
+   0.00642,
+   0.006,
+   0.00649,
+   0.00515,
+   0.00599,
+   0.00498,
+   0.00533,
+   0.00991,
+   0.00514,
+   0.00556,
+   0.00429,
+   0.00491,
+   0.01268,
+   0.00441,
+   0.01399,
+   0.00404,
+   0.00406,
+   0.00622,
+   0.00393,
+   0.00431,
+   0.00472,
+   0.00377,
+   0.00492,
+   0.00493,
+   0.00428,
+   0.00395,
+   0.0035,
+   0.00622,
+   0.0038,
+   0.0036,
+   0.00331,
+   0.00319,
+   0.00362,
+   0.00363,
+   0.00406,
+   0.00353,
+   0.00442
+  ],
+  "expected": [
+   0.04139,
+   0.03779,
+   0.03476,
+   0.03218,
+   0.02996,
+   0.02803,
+   0.02633,
+   0.02482,
+   0.02348,
+   0.02228,
+   0.02119,
+   0.0202,
+   0.01931,
+   0.01848,
+   0.01773,
+   0.01703,
+   0.01639,
+   0.01579,
+   0.01524,
+   0.01472,
+   0.01424,
+   0.01379,
+   0.01336,
+   0.01296,
+   0.01259,
+   0.01223,
+   0.0119,
+   0.01158,
+   0.01128,
+   0.011,
+   0.01072,
+   0.01047,
+   0.01022,
+   0.00998,
+   0.00976,
+   0.00955,
+   0.00934,
+   0.00914,
+   0.00895,
+   0.00877,
+   0.0086,
+   0.00843,
+   0.00827,
+   0.00812,
+   0.00797,
+   0.00783,
+   0.00769,
+   0.00755,
+   0.00742,
+   0.0073,
+   0.00718,
+   0.00706,
+   0.00695,
+   0.00684,
+   0.00673,
+   0.00663,
+   0.00653,
+   0.00643,
+   0.00634,
+   0.00625,
+   0.00616,
+   0.00607,
+   0.00599,
+   0.00591,
+   0.00583,
+   0.00575,
+   0.00568,
+   0.0056,
+   0.00553,
+   0.00546,
+   0.0054,
+   0.00533,
+   0.00526,
+   0.0052,
+   0.00514,
+   0.00508,
+   0.00502,
+   0.00496,
+   0.00491,
+   0.00485,
+   0.0048,
+   0.00475,
+   0.0047,
+   0.00464,
+   0.0046,
+   0.00455,
+   0.0045,
+   0.00445,
+   0.00441,
+   0.00436
+  ],
+  "mad": 0.0022169355804618866,
+  "verdict": "Nonconformity",
+  "spikes": [
+   {
+    "digits": 50,
+    "obs": 0.0446,
+    "exp": 0.0086,
+    "z": 132.2326,
+    "excess_count": 4145.7614
+   },
+   {
+    "digits": 15,
+    "obs": 0.04,
+    "exp": 0.028,
+    "z": 24.698,
+    "excess_count": 1384.4654
+   },
+   {
+    "digits": 77,
+    "obs": 0.014,
+    "exp": 0.0056,
+    "z": 38.1014,
+    "excess_count": 966.1083
+   },
+   {
+    "digits": 75,
+    "obs": 0.0127,
+    "exp": 0.0058,
+    "z": 31.0617,
+    "excess_count": 797.9981
+   },
+   {
+    "digits": 25,
+    "obs": 0.0239,
+    "exp": 0.017,
+    "z": 18.1034,
+    "excess_count": 795.7714
+   },
+   {
+    "digits": 20,
+    "obs": 0.0253,
+    "exp": 0.0212,
+    "z": 9.6388,
+    "excess_count": 471.7638
+   },
+   {
+    "digits": 17,
+    "obs": 0.0289,
+    "exp": 0.0248,
+    "z": 8.9052,
+    "excess_count": 470.8834
+   },
+   {
+    "digits": 70,
+    "obs": 0.0099,
+    "exp": 0.0062,
+    "z": 16.2428,
+    "excess_count": 431.9751
+   },
+   {
+    "digits": 30,
+    "obs": 0.0175,
+    "exp": 0.0142,
+    "z": 9.3023,
+    "excess_count": 374.6755
+   },
+   {
+    "digits": 60,
+    "obs": 0.0103,
+    "exp": 0.0072,
+    "z": 12.7041,
+    "excess_count": 364.6107
+   }
+  ],
+  "spike_top_amounts": {
+   "50": [
+    [
+     50.0,
+     2971
+    ],
+    [
+     500.0,
+     1124
+    ],
+    [
+     5000.0,
+     140
+    ]
+   ],
+   "15": [
+    [
+     1550.0,
+     930
+    ],
+    [
+     1500.0,
+     831
+    ],
+    [
+     150.0,
+     207
+    ]
+   ],
+   "77": [
+    [
+     775.0,
+     1072
+    ],
+    [
+     7740.7,
+     16
+    ],
+    [
+     773.07,
+     16
+    ]
+   ],
+   "75": [
+    [
+     750.0,
+     817
+    ],
+    [
+     75.0,
+     104
+    ],
+    [
+     7500.0,
+     37
+    ]
+   ],
+   "25": [
+    [
+     250.0,
+     525
+    ],
+    [
+     2500.0,
+     179
+    ],
+    [
+     25000.0,
+     166
+    ]
+   ],
+   "20": [
+    [
+     200.0,
+     438
+    ],
+    [
+     2000.0,
+     178
+    ],
+    [
+     20000.0,
+     113
+    ]
+   ]
+  }
+ },
+ "frequent_amounts": [
+  {
+   "amount": 50.0,
+   "count": 2971,
+   "vendors": 2948
+  },
+  {
+   "amount": 500.0,
+   "count": 1124,
+   "vendors": 408
+  },
+  {
+   "amount": 175.0,
+   "count": 1083,
+   "vendors": 1041
+  },
+  {
+   "amount": 775.0,
+   "count": 1072,
+   "vendors": 268
+  },
+  {
+   "amount": 1550.0,
+   "count": 930,
+   "vendors": 271
+  },
+  {
+   "amount": 1500.0,
+   "count": 831,
+   "vendors": 420
+  },
+  {
+   "amount": 750.0,
+   "count": 817,
+   "vendors": 310
+  },
+  {
+   "amount": 250.0,
+   "count": 525,
+   "vendors": 406
+  },
+  {
+   "amount": 1000.0,
+   "count": 478,
+   "vendors": 228
+  },
+  {
+   "amount": 200.0,
+   "count": 438,
+   "vendors": 338
+  }
+ ],
+ "round": {
+  "count": 1743,
+  "value": 1558783000.0,
+  "share_of_large": 0.047557980900409275
+ },
+ "dup_lines": {
+  "rows_involved": 1865,
+  "extra_rows": 1056,
+  "extra_value": 371011925.8500001
+ },
+ "near_dup": {
+  "pairs_all": 6196,
+  "value_all": 627740723.8399999,
+  "pairs_isolated": 832,
+  "value_isolated": 146564413.74,
+  "top": [
+   {
+    "vendor_name": "POLICEMENS A & B FUND",
+    "department_name": "(not recorded)",
+    "amount": 41039588.69,
+    "prev_date": "2025-02-25",
+    "date": "2025-02-25",
+    "prev_voucher": "PV27242704039",
+    "voucher_number": "PV27242704043",
+    "days_apart": 0
+   },
+   {
+    "vendor_name": "FIREMENS ANNUITY BENEFIT FUND",
+    "department_name": "(not recorded)",
+    "amount": 27520614.38,
+    "prev_date": "2025-02-25",
+    "date": "2025-02-25",
+    "prev_voucher": "PV27242704040",
+    "voucher_number": "PV27242704044",
+    "days_apart": 0
+   },
+   {
+    "vendor_name": "LABORERS & RETIREMENT BOARD",
+    "department_name": "(not recorded)",
+    "amount": 24542286.7,
+    "prev_date": "2025-02-25",
+    "date": "2025-02-25",
+    "prev_voucher": "PV27242704038",
+    "voucher_number": "PV27242704042",
+    "days_apart": 0
+   },
+   {
+    "vendor_name": "LOEVY & LOEVY ATTORNEYS AT LAW",
+    "department_name": "(not recorded)",
+    "amount": 20000000.0,
+    "prev_date": "2025-07-22",
+    "date": "2025-07-22",
+    "prev_voucher": "PV27252720371",
+    "voucher_number": "PV27252720375",
+    "days_apart": 0
+   },
+   {
+    "vendor_name": "BOARD OF EDUCATION OF THE CITY OF CHICAGO",
+    "department_name": "DEPARTMENT OF PLANNING AND DEVELOPMENT",
+    "amount": 8000000.0,
+    "prev_date": "2025-07-07",
+    "date": "2025-07-14",
+    "prev_voucher": "PVCI25CI301670",
+    "voucher_number": "PVCI25CI301922",
+    "days_apart": 7
+   },
+   {
+    "vendor_name": "HEART OF UPTOWN APARTMENTS LLC",
+    "department_name": "DEPARTMENT OF PLANNING AND DEVELOPMENT",
+    "amount": 4500000.0,
+    "prev_date": "2025-12-16",
+    "date": "2025-12-23",
+    "prev_voucher": "PVCI25CI304019",
+    "voucher_number": "PVCI25CI304149",
+    "days_apart": 7
+   },
+   {
+    "vendor_name": "LAKESHORE RECYCLING SYSTEMS",
+    "department_name": "DEPARTMENT OF STREETS AND SANITATION",
+    "amount": 2417826.78,
+    "prev_date": "2025-03-10",
+    "date": "2025-04-09",
+    "prev_voucher": "PVCI25CI300254",
+    "voucher_number": "PVCI25CI300679",
+    "days_apart": 30
+   },
+   {
+    "vendor_name": "LAKESHORE RECYCLING SYSTEMS",
+    "department_name": "DEPARTMENT OF STREETS AND SANITATION",
+    "amount": 2417826.78,
+    "prev_date": "2025-06-17",
+    "date": "2025-07-08",
+    "prev_voucher": "PVCI25CI301513",
+    "voucher_number": "PVCI25CI301824",
+    "days_apart": 21
+   },
+   {
+    "vendor_name": "BANDWITH MUSIC, LIMITED",
+    "department_name": "DEPARTMENT OF PLANNING AND DEVELOPMENT",
+    "amount": 1250000.0,
+    "prev_date": "2025-08-01",
+    "date": "2025-08-22",
+    "prev_voucher": "PVCI25CI302259",
+    "voucher_number": "PVCI25CI302500",
+    "days_apart": 21
+   },
+   {
+    "vendor_name": "CBRE INC.",
+    "department_name": "(not recorded)",
+    "amount": 846878.83,
+    "prev_date": "2025-03-18",
+    "date": "2025-03-18",
+    "prev_voucher": "PVCI25CI100355",
+    "voucher_number": "PVCI25CI100356",
+    "days_apart": 0
+   }
+  ]
+ },
+ "negatives": {
+  "count": 200,
+  "value": -465797.43
+ },
+ "vendor_conc": {
+  "top10": {
+   "MUNICIPAL EMPLOYEE PENSION FD": 1065921369.0,
+   "COOK COUNTY TREASURER": 712516533.0,
+   "BLUE CROSS & BLUE SHIELD": 609983746.0,
+   "POLICEMENS A & B FUND": 329551936.0,
+   "AMALGAMATED BANK OF CHICAGO": 309267300.0,
+   "STATE OF ILLINOIS TREASURER'S OFFICE": 239287720.0,
+   "NATIONWIDE RETIREMENT SOLUTION": 216938637.0,
+   "BANK OF NEW YORK TRUST": 186630309.0,
+   "FIREMENS ANNUITY BENEFIT FUND": 181245993.0,
+   "F.H. PASCHEN S.N. NIELSEN & ASSOCIATES, LLC": 177480392.0
+  },
+  "top10_share": 0.3778351340450536,
+  "vendors_for_80pct": 129,
+  "vendor_count": 17685
+ },
+ "dept": [
+  {
+   "dept": "(not recorded)",
+   "usd": 6069915247.1,
+   "n": 62649
+  },
+  {
+   "dept": "CHICAGO DEPARTMENT OF AVIATION",
+   "usd": 1046880892.36,
+   "n": 5312
+  },
+  {
+   "dept": "DEPARTMENT OF FINANCE",
+   "usd": 838077410.08,
+   "n": 634
+  },
+  {
+   "dept": "CHICAGO DEPARTMENT OF TRANSPORTATION",
+   "usd": 565256132.05,
+   "n": 3134
+  },
+  {
+   "dept": "DEPARTMENT OF FAMILY AND SUPPORT SERVICES",
+   "usd": 386169150.09,
+   "n": 13880
+  },
+  {
+   "dept": "DEPARTMENT OF PLANNING AND DEVELOPMENT",
+   "usd": 361088063.02,
+   "n": 624
+  },
+  {
+   "dept": "DEPARTMENT OF WATER MANAGEMENT",
+   "usd": 334543302.38,
+   "n": 2400
+  },
+  {
+   "dept": "DEPT OF GENERAL SERVICES",
+   "usd": 245020827.21,
+   "n": 7417
+  },
+  {
+   "dept": "DEPT OF ASSETS INFORMATION AND SERVICES",
+   "usd": 159784378.16,
+   "n": 781
+  },
+  {
+   "dept": "DEPARTMENT OF STREETS AND SANITATION",
+   "usd": 111185621.24,
+   "n": 492
+  }
+ ],
+ "no_contract_share": 0.3946907087402955,
+ "monthly": {
+  "2025-01": 639574945.0,
+  "2025-02": 2040536566.0,
+  "2025-03": 1115181945.0,
+  "2025-04": 749899170.0,
+  "2025-05": 573583770.0,
+  "2025-06": 876650095.0,
+  "2025-07": 866044105.0,
+  "2025-08": 696766661.0,
+  "2025-09": 620446335.0,
+  "2025-10": 823254824.0,
+  "2025-11": 503748765.0,
+  "2025-12": 1157227862.0
+ },
+ "weekday": {
+  "Tuesday": 26063,
+  "Friday": 23819,
+  "Thursday": 23589,
+  "Wednesday": 23050,
+  "Monday": 19276
+ }
+}

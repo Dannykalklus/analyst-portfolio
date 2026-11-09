@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accounts Payable Audit Analytics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Same research-note system as the portfolio: ruled sections, mono figures, ledger green accent with gold for the second series. */
+  --paper:#F2F4F3;--ink:#13201B;--muted:#5A6B64;--rule:#CBD5D0;--accent:#1E6B4E;--gold:#A87A12;--panel:#FFFFFF;--bad:#B03A2E;
+  --display:"Source Serif 4",Georgia,serif;--body:"IBM Plex Sans","Segoe UI",Arial,sans-serif;--mono:"IBM Plex Mono",Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#0F1714;--ink:#E4ECE8;--muted:#94A59E;--rule:#2A3832;--accent:#4FBF8E;--gold:#D9A93A;--panel:#15201C;--bad:#E07A6E;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#0F1714;--ink:#E4ECE8;--muted:#94A59E;--rule:#2A3832;--accent:#4FBF8E;--gold:#D9A93A;--panel:#15201C;--bad:#E07A6E;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);line-height:1.55;font-size:15px}
+a{color:var(--accent)}
+a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header{border-bottom:3px double var(--ink);padding:16px 0 12px}
+header .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}
+.back{font-size:.88rem}
+h1,h2{font-family:var(--display);text-wrap:balance;margin:0;font-weight:700;line-height:1.15}
+h1{font-size:clamp(1.8rem,4vw,2.6rem);margin:28px 0 8px}
+.lede{color:var(--muted);max-width:70ch;margin:0 0 20px}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.tiles{display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+.tile{padding:14px 14px 12px;border-right:1px solid var(--rule)}
+.tile:last-child{border-right:none}
+.tile .l{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tile .v{font-family:var(--display);font-size:1.9rem;font-weight:700;line-height:1.1;margin-top:4px}
+.tile .s{font-size:.78rem;color:var(--muted)}
+.up{color:var(--bad)}.down{color:var(--accent)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px}
+.card{background:var(--panel);border:1px solid var(--rule);padding:18px}
+.card.wide{grid-column:1/-1}
+.card h2{font-size:1.15rem}
+.card .sub{font-size:.8rem;color:var(--muted);margin:2px 0 10px}
+.chart{position:relative;height:280px}
+.card.wide .chart{height:320px}
+.note{font-size:.84rem;color:var(--ink);border-left:3px solid var(--gold);padding:2px 0 2px 10px;margin:12px 0 0;max-width:80ch}
+.findings{margin-top:28px;border-top:1px solid var(--rule);padding-top:16px}
+.findings ol{padding-left:20px;max-width:80ch}
+.findings li{margin-bottom:8px}
+footer{margin-top:40px;border-top:3px double var(--ink);padding:14px 0 36px;font-size:.78rem;color:var(--muted)}
+@media (max-width:900px){.tiles{grid-template-columns:repeat(3,1fr)}.tile:nth-child(3){border-right:none}.tile:nth-child(-n+3){border-bottom:1px solid var(--rule)}.grid{grid-template-columns:1fr}}
+@media (max-width:480px){.tiles{grid-template-columns:repeat(2,1fr)}.tile{border-right:none;border-bottom:1px solid var(--rule)}}
+</style>
+
+<style>
+table{border-collapse:collapse;width:100%;font-size:.84rem}th,td{padding:6px 8px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+thead th{border-bottom:1px solid var(--ink);font-weight:600}td.num,th.num{text-align:right}
+.scroll{overflow-x:auto}.verdict{font-family:var(--mono);font-size:.75rem;border:1px solid var(--gold);color:var(--gold);padding:2px 8px;display:inline-block;margin-top:6px}
+.findings h3{font-family:var(--display);font-size:1.05rem;margin:18px 0 4px}.findings p{margin:0 0 6px;max-width:80ch}
+.proc{font-size:.88rem;color:var(--muted)}
+</style></head>
+<body>
+<header><div class="wrap"><strong style="font-family:var(--display)">Daniel N. T. Tackie</strong><a class="back" href="../../index.html">Back to portfolio</a></div></header>
+<main class="wrap">
+<h1>Accounts payable audit analytics</h1>
+<p class="lede">Data analytics tests that an internal or external auditor would run on a payables ledger, applied to every vendor payment the City of Chicago made in 2025 (115,797 payment lines, $10.66bn). Flags are risk indicators that call for follow-up, not conclusions of error or fraud.</p>
+<div class="tiles">
+ <div class="tile"><div class="l">Payment lines</div><div class="v num">115.8k</div><div class="s">2025-01-02 to 2025-12-31</div></div>
+ <div class="tile"><div class="l">Total paid</div><div class="v num">$10.66bn</div><div class="s">17,685 vendors</div></div>
+ <div class="tile"><div class="l">No department</div><div class="v num">54.1%</div><div class="s">of lines; 56.9% of value</div></div>
+ <div class="tile"><div class="l">Possible duplicates</div><div class="v num">832</div><div class="s">pairs, $146.6m</div></div>
+ <div class="tile"><div class="l">Identical lines</div><div class="v num">1,056</div><div class="s">repeat rows, $371.0m</div></div>
+ <div class="tile"><div class="l">Benford, 1st digit</div><div class="v num">0.0090</div><div class="s">MAD: acceptable conformity</div></div>
+</div>
+
+<div class="grid">
+ <div class="card"><h2>Benford's Law: first digit</h2><p class="sub">Share of payments by leading digit vs Benford expectation, 115,258 payments of $10 or more</p>
+  <div class="chart"><canvas id="c1" aria-label="Benford first digit chart"></canvas></div>
+  <span class="verdict">MAD 0.0090: Acceptable conformity (Nigrini)</span>
+  <p class="note">The ledger as a whole fits Benford acceptably. The one clear excess is digit 5 (10.8% vs 7.9% expected), which the two-digit test traces to fixed $50 and $500 payments.</p></div>
+ <div class="card"><h2>Benford's Law: first two digits</h2><p class="sub">Observed vs expected share, digits 10 to 99</p>
+  <div class="chart"><canvas id="c2" aria-label="Benford first two digits chart"></canvas></div>
+  <span class="verdict">MAD 0.0022: Nonconformity (Nigrini)</span>
+  <p class="note">At two-digit level the ledger does not conform, because many payments are standard fixed amounts. Each spike below can be traced to a small set of exact amounts.</p></div>
+ <div class="card wide"><h2>Where the digit spikes come from</h2><p class="sub">Two-digit combinations significantly above expectation (z &gt; 3.29, p &lt; 0.001), with the exact amounts driving them</p>
+  <div class="scroll"><table><thead><tr><th class="num">Digits</th><th class="num">Observed</th><th class="num">Expected</th><th class="num">z</th><th>Most common amounts</th></tr></thead><tbody><tr><td class='num'>50</td><td class='num'>4.46%</td><td class='num'>0.86%</td><td class='num'>132.2</td><td>$50.00 (2,971x), $500.00 (1,124x), $5,000.00 (140x)</td></tr><tr><td class='num'>15</td><td class='num'>4.00%</td><td class='num'>2.80%</td><td class='num'>24.7</td><td>$1,550.00 (930x), $1,500.00 (831x), $150.00 (207x)</td></tr><tr><td class='num'>77</td><td class='num'>1.40%</td><td class='num'>0.56%</td><td class='num'>38.1</td><td>$775.00 (1,072x), $7,740.70 (16x), $773.07 (16x)</td></tr><tr><td class='num'>75</td><td class='num'>1.27%</td><td class='num'>0.58%</td><td class='num'>31.1</td><td>$750.00 (817x), $75.00 (104x), $7,500.00 (37x)</td></tr><tr><td class='num'>25</td><td class='num'>2.39%</td><td class='num'>1.70%</td><td class='num'>18.1</td><td>$250.00 (525x), $2,500.00 (179x), $25,000.00 (166x)</td></tr><tr><td class='num'>20</td><td class='num'>2.53%</td><td class='num'>2.12%</td><td class='num'>9.6</td><td>$200.00 (438x), $2,000.00 (178x), $20,000.00 (113x)</td></tr></tbody></table></div>
+  <p class="note">Almost all of these are direct vouchers with no contract and no department recorded. A $50 payment went to 2,948 different payees, which points to a standard program payment, refund or stipend. An auditor would confirm each fixed amount against an approved rate schedule.</p></div>
+ <div class="card wide"><h2>Possible duplicate payments</h2><p class="sub">Same vendor, same amount (≥ $1,000), different voucher number, paid within 30 days. Vendors with more than three such pairs are excluded as likely fixed recurring payments.</p>
+  <div class="scroll"><table><thead><tr><th>Vendor</th><th class="num">Amount ($)</th><th class="num">First paid</th><th class="num">Paid again</th><th class="num">Days apart</th></tr></thead><tbody><tr><td>Policemens A &amp; B Fund</td><td class='num'>41,039,588.69</td><td class='num'>2025-02-25</td><td class='num'>2025-02-25</td><td class='num'>0</td></tr><tr><td>Firemens Annuity Benefit Fund</td><td class='num'>27,520,614.38</td><td class='num'>2025-02-25</td><td class='num'>2025-02-25</td><td class='num'>0</td></tr><tr><td>Laborers &amp; Retirement Board</td><td class='num'>24,542,286.70</td><td class='num'>2025-02-25</td><td class='num'>2025-02-25</td><td class='num'>0</td></tr><tr><td>Loevy &amp; Loevy Attorneys At Law</td><td class='num'>20,000,000.00</td><td class='num'>2025-07-22</td><td class='num'>2025-07-22</td><td class='num'>0</td></tr><tr><td>Board Of Education Of The City Of Chicago</td><td class='num'>8,000,000.00</td><td class='num'>2025-07-07</td><td class='num'>2025-07-14</td><td class='num'>7</td></tr><tr><td>Heart Of Uptown Apartments Llc</td><td class='num'>4,500,000.00</td><td class='num'>2025-12-16</td><td class='num'>2025-12-23</td><td class='num'>7</td></tr><tr><td>Lakeshore Recycling Systems</td><td class='num'>2,417,826.78</td><td class='num'>2025-03-10</td><td class='num'>2025-04-09</td><td class='num'>30</td></tr><tr><td>Lakeshore Recycling Systems</td><td class='num'>2,417,826.78</td><td class='num'>2025-06-17</td><td class='num'>2025-07-08</td><td class='num'>21</td></tr></tbody></table></div>
+  <p class="note">832 pairs worth $146.6m meet the test (6,196 pairs and $627.7m before excluding recurring vendors). The largest are same-day pension fund transfers and legal settlements, which may well be separate obligations of equal size, so the next step is to inspect the supporting invoices. Full list: <span class="num">data/exceptions_possible_duplicates.csv</span>.</p></div>
+ <div class="card"><h2>Vendor concentration</h2><p class="sub">Top 10 vendors by 2025 payments, $m</p>
+  <div class="chart"><canvas id="c3" aria-label="Top vendors chart"></canvas></div>
+  <p class="note">The top 10 vendors received 37.8% of spending. Just 129 of 17,685 vendors account for 80% of the money, mostly pension funds, tax and insurance.</p></div>
+ <div class="card"><h2>Spending by department</h2><p class="sub">Top 10 by value, $m</p>
+  <div class="chart"><canvas id="c4" aria-label="Department spend chart"></canvas></div>
+  <p class="note">56.9% of the value has no department recorded, so it cannot be traced to a budget owner from this extract. 73.0% of those lines are direct vouchers.</p></div>
+</div>
+
+<section class="findings">
+ <h2 style="font-size:1.3rem">Findings and recommended follow-up</h2>
+ <h3>1. Missing department coding on 54.1% of payment lines</h3>
+ <p>$6.07bn of payments cannot be linked to a department in the published data. <span class="proc">Procedure: confirm whether the field is missing at source or only in the public extract, and test whether direct vouchers carry budget-owner approval.</span></p>
+ <h3>2. 832 possible duplicate payments ($146.6m)</h3>
+ <p>5 of the ten largest pairs were paid on the same day under different voucher numbers. <span class="proc">Procedure: vouch both payments to separate invoices or obligations; check vendor statements for credits.</span></p>
+ <h3>3. 1,056 fully identical payment lines ($371.0m)</h3>
+ <p>Rows where voucher, amount, date, vendor and contract all match. These are usually split lines on one voucher, but they should reconcile to voucher totals. <span class="proc">Procedure: agree a sample of vouchers to the general ledger.</span></p>
+ <h3>4. Fixed-amount payments distort the digit profile</h3>
+ <p>The first-digit test conforms, but standard amounts ($50, $500, $775, $1,550) create large two-digit spikes. <span class="proc">Procedure: obtain the approved rate schedules and test that each fixed payment type matches one.</span></p>
+ <h3>5. High concentration in a few counterparties</h3>
+ <p>129 vendors take 80% of spending. <span class="proc">Procedure: focus substantive testing on these vendors; confirm balances directly with pension funds and banks.</span></p>
+</section>
+
+<footer>Data: City of Chicago Data Portal, "Payments" dataset (s4vu-giwb), all lines with a 2025 check date, downloaded through the Socrata API. Method: Nigrini (2012) Benford thresholds; duplicate rules as described above. Python (pandas, NumPy) and Chart.js. Analysis by Daniel N. T. Tackie. This is an independent portfolio exercise, not an audit opinion on the City of Chicago.</footer>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+const D={"b1o": [0.2885, 0.1716, 0.1183, 0.0974, 0.1082, 0.0631, 0.069, 0.0445, 0.0394], "b1e": [0.301, 0.1761, 0.1249, 0.0969, 0.0792, 0.0669, 0.058, 0.0512, 0.0458], "b2o": [0.0424, 0.03117, 0.03128, 0.02684, 0.02563, 0.04004, 0.02192, 0.02891, 0.02028, 0.02, 0.02528, 0.01758, 0.01826, 0.01489, 0.01514, 0.02394, 0.01481, 0.01609, 0.01268, 0.01291, 0.01749, 0.01108, 0.01108, 0.01217, 0.01184, 0.01327, 0.01113, 0.01128, 0.00972, 0.00928, 0.01327, 0.01294, 0.01067, 0.00942, 0.00875, 0.01066, 0.00753, 0.00854, 0.00827, 0.00736, 0.04457, 0.00731, 0.00787, 0.0063, 0.00734, 0.00782, 0.00705, 0.00681, 0.00632, 0.00678, 0.01034, 0.00633, 0.00608, 0.00642, 0.006, 0.00649, 0.00515, 0.00599, 0.00498, 0.00533, 0.00991, 0.00514, 0.00556, 0.00429, 0.00491, 0.01268, 0.00441, 0.01399, 0.00404, 0.00406, 0.00622, 0.00393, 0.00431, 0.00472, 0.00377, 0.00492, 0.00493, 0.00428, 0.00395, 0.0035, 0.00622, 0.0038, 0.0036, 0.00331, 0.00319, 0.00362, 0.00363, 0.00406, 0.00353, 0.00442], "b2e": [0.04139, 0.03779, 0.03476, 0.03218, 0.02996, 0.02803, 0.02633, 0.02482, 0.02348, 0.02228, 0.02119, 0.0202, 0.01931, 0.01848, 0.01773, 0.01703, 0.01639, 0.01579, 0.01524, 0.01472, 0.01424, 0.01379, 0.01336, 0.01296, 0.01259, 0.01223, 0.0119, 0.01158, 0.01128, 0.011, 0.01072, 0.01047, 0.01022, 0.00998, 0.00976, 0.00955, 0.00934, 0.00914, 0.00895, 0.00877, 0.0086, 0.00843, 0.00827, 0.00812, 0.00797, 0.00783, 0.00769, 0.00755, 0.00742, 0.0073, 0.00718, 0.00706, 0.00695, 0.00684, 0.00673, 0.00663, 0.00653, 0.00643, 0.00634, 0.00625, 0.00616, 0.00607, 0.00599, 0.00591, 0.00583, 0.00575, 0.00568, 0.0056, 0.00553, 0.00546, 0.0054, 0.00533, 0.00526, 0.0052, 0.00514, 0.00508, 0.00502, 0.00496, 0.00491, 0.00485, 0.0048, 0.00475, 0.0047, 0.00464, 0.0046, 0.00455, 0.0045, 0.00445, 0.00441, 0.00436], "vend": [["Municipal Employee Pension Fd", 1065921369.0], ["Cook County Treasurer", 712516533.0], ["Blue Cross & Blue Shield", 609983746.0], ["Policemens A & B Fund", 329551936.0], ["Amalgamated Bank Of Chicago", 309267300.0], ["State Of Illinois Treasurer'S Office", 239287720.0], ["Nationwide Retirement Solution", 216938637.0], ["Bank Of New York Trust", 186630309.0], ["Firemens Annuity Benefit Fund", 181245993.0], ["F.H. Paschen S.N. Nielsen & Associates, Llc", 177480392.0]], "dept": [["(Not Recorded)", 6069915247.1], ["Chicago Department Of Aviation", 1046880892.36], ["Department Of Finance", 838077410.08], ["Chicago Department Of Transportation", 565256132.05], ["Department Of Family And Support Services", 386169150.09], ["Department Of Planning And Development", 361088063.02], ["Department Of Water Management", 334543302.38], ["Dept Of General Services", 245020827.21], ["Dept Of Assets Information And Services", 159784378.16], ["Department Of Streets And Sanitation", 111185621.24]], "mon": {"2025-01": 639574945.0, "2025-02": 2040536566.0, "2025-03": 1115181945.0, "2025-04": 749899170.0, "2025-05": 573583770.0, "2025-06": 876650095.0, "2025-07": 866044105.0, "2025-08": 696766661.0, "2025-09": 620446335.0, "2025-10": 823254824.0, "2025-11": 503748765.0, "2025-12": 1157227862.0}};
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const ink=css("--ink"),muted=css("--muted"),rule=css("--rule"),acc=css("--accent"),gold=css("--gold");
+Chart.defaults.font.family=css("--body");Chart.defaults.color=muted;Chart.defaults.borderColor=rule;Chart.defaults.maintainAspectRatio=false;Chart.defaults.plugins.legend.labels.boxWidth=12;
+const p=v=>(v*100).toFixed(1)+"%";
+new Chart(c1,{data:{labels:[1,2,3,4,5,6,7,8,9],datasets:[{type:"bar",label:"Observed",data:D.b1o,backgroundColor:acc},{type:"line",label:"Benford expected",data:D.b1e,borderColor:gold,backgroundColor:gold,pointRadius:3}]},
+ options:{plugins:{tooltip:{callbacks:{label:c=>c.dataset.label+": "+p(c.parsed.y)}}},scales:{y:{ticks:{callback:v=>p(v)}},x:{grid:{display:false},title:{display:true,text:"First digit"}}}}});
+const l2=[...Array(90)].map((_,i)=>i+10);
+new Chart(c2,{data:{labels:l2,datasets:[{type:"bar",label:"Observed",data:D.b2o,backgroundColor:acc},{type:"line",label:"Benford expected",data:D.b2e,borderColor:gold,pointRadius:0,borderWidth:2}]},
+ options:{plugins:{tooltip:{callbacks:{label:c=>c.dataset.label+": "+(c.parsed.y*100).toFixed(2)+"%"}}},scales:{y:{ticks:{callback:v=>p(v)}},x:{grid:{display:false},ticks:{maxTicksLimit:10,maxRotation:0},title:{display:true,text:"First two digits"}}}}});
+const hb=(el,rows,color)=>new Chart(el,{type:"bar",data:{labels:rows.map(r=>r[0].length>34?r[0].slice(0,33)+"…":r[0]),datasets:[{data:rows.map(r=>r[1]/1e6),backgroundColor:color}]},
+ options:{indexAxis:"y",plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>"$"+c.parsed.x.toLocaleString(undefined,{maximumFractionDigits:1})+"m"}}},scales:{x:{ticks:{callback:v=>"$"+v.toLocaleString()+"m"}},y:{grid:{display:false},ticks:{font:{size:11}}}}}});
+hb(c3,D.vend,acc);hb(c4,D.dept,D.dept.map(r=>r[0].startsWith("(Not")?gold:acc));
+</script></body></html>
