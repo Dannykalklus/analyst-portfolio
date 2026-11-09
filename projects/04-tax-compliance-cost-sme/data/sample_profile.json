@@ -1,0 +1,39 @@
+{
+ "Number of employees": {
+  "6\u201330": 161,
+  "1\u20135": 157,
+  "31\u2013100": 66
+ },
+ "Years in operation": {
+  "3\u20135 years": 113,
+  "6\u201310 years": 112,
+  "11\u201315 years": 73,
+  "16\u201320 years": 49,
+  "More than 20 years": 37
+ },
+ "Your position": {
+  "Owner/Owner-manager": 171,
+  "Finance Manager/Officer": 95,
+  "Accountant": 92,
+  "Other senior employee": 26
+ },
+ "Main business activity": {
+  "Services": 128,
+  "Wholesale/Retail/Trading": 126,
+  "Manufacturing": 69,
+  "Construction/Real Estate": 48,
+  "Other": 13
+ },
+ "Ownership/legal form": {
+  "Sole proprietorship": 174,
+  "Private limited company": 148,
+  "Partnership": 55,
+  "Other": 7
+ },
+ "Who handles tax matters?": {
+  "Internal accountant/finance staff": 110,
+  "Owner/Owner-manager": 105,
+  "External accountant/tax consultant": 88,
+  "Combination of internal and external": 81
+ }
+}
