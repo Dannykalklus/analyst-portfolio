@@ -18,7 +18,7 @@ page = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name
 <header><div class="wrap"><strong style="font-family:var(--display)">Daniel N. T. Tackie</strong><a class="back" href="../../index.html">Back to portfolio</a></div></header>
 <main class="wrap">
 <h1>Tax compliance cost and SME performance in Ghana</h1>
-<p class="lede">My MSc research. Does the cost of complying with GRA tax obligations hurt small business performance, and does responsibility accounting soften the damage? Survey of {R['n']} SMEs in Greater Accra, analysed with PLS-SEM and {R['n_boot']:,} bootstrap resamples.</p>
+<p class="lede">My approved MSc long essay (University of Ghana Business School, supervised by Dr. Nicholas Asare). Does the cost of complying with GRA tax obligations hurt small business performance, and does responsibility accounting soften the damage? Survey of {R['n']} SMEs in Greater Accra, analysed with PLS-SEM and {R['n_boot']:,} bootstrap resamples.</p>
 <div class="tiles">
  <div class="tile"><div class="l">SMEs surveyed</div><div class="v num">{R['n']}</div><div class="s">Greater Accra, GRA-registered</div></div>
  <div class="tile"><div class="l">Compliance cost effect</div><div class="v num">{h1['beta']:+.2f}</div><div class="s">β on firm outcomes, p {fmtp(h1['p'])}</div></div>

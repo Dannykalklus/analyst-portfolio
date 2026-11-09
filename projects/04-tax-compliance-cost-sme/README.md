@@ -1,4 +1,4 @@
-# Tax Compliance Cost and SME Performance in Ghana (MSc research)
+# Tax Compliance Cost and SME Performance in Ghana (approved MSc long essay)
 
 **Question:** Does the cost of complying with GRA tax obligations reduce SME performance, and does responsibility accounting weaken that effect?
 
